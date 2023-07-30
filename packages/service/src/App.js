@@ -1,18 +1,17 @@
-import { Button } from "@monorepo/design-system";
 import { useState } from "./useState/useState";
+import { addEventListener } from "./EventListener";
 
 function App() {
   const [count, setCount] = useState(0);
-
   const handleBtnClick = () => {
     setCount(count + 1);
   };
 
-  window.handleBtnClick = handleBtnClick;
+  addEventListener("click", handleBtnClick);
 
   return `
     <div>
-      <button id="count_btn" onClick="handleBtnClick()">Count</button>
+      <button id="count_btn">Count : ${count}</button>
     </div>
   `;
 }
