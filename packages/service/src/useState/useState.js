@@ -1,5 +1,4 @@
-// 함수형 업데이트도 처리해야 setState(v=>v+1);
-import { debounce, debounceWithRAF } from "../util/debounce";
+import { debounce } from "../util/debounce";
 
 const options = {
   component: null,
@@ -20,9 +19,15 @@ function SimpleUseState() {
     }
 
     const setState = (nextState) => {
-      if (nextState === pair[0]) return;
-      if (JSON.stringify(nextState) === JSON.stringify(pair[0])) return;
-      pair[0] = nextState;
+      if (typeof nextState === "function") {
+        // setState(v=>v+1)
+        const prevState = pair[0];
+        pair[0] = nextState(prevState);
+      } else {
+        if (nextState === pair[0]) return;
+        if (JSON.stringify(nextState) === JSON.stringify(pair[0])) return;
+        pair[0] = nextState;
+      }
       _render();
     };
 
@@ -39,6 +44,7 @@ function SimpleUseState() {
     if (!component || !container) return;
     options.currentHookIndex = 0;
     options.renderCount += 1;
+    console.log(options.renderCount);
     container.innerHTML = component();
   });
 
