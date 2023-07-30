@@ -1,5 +1,4 @@
 const handlerMap = new Map();
-//  { }
 function Listener() {
   const root = document.getElementById("root");
 
