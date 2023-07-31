@@ -1,4 +1,4 @@
-import { debounce } from "../util/debounce";
+import { debounce } from "../../util/debounce";
 
 const options = {
   component: null,

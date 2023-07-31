@@ -1,4 +1,4 @@
-import { useState } from "./useState/useState";
+import { useState } from "./hooks/useState/useState";
 import { addEventListener } from "./EventListener";
 
 function App() {
