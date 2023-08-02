@@ -12,7 +12,7 @@ function SimpleUseReducer(reducer, initialState) {
   const [state, setState] = useState(initialState);
 
   const dispatch = (action) => {
-    const nextState = reducer(action);
+    const nextState = reducer(action, state);
     setState(nextState);
   };
 
