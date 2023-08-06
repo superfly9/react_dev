@@ -7,7 +7,6 @@ async function rootLoader() {
 
 const contactLoader = async ({ params }: any) => {
   let contact = await getContact(params.contactId);
-
   return { contact };
 };
 

@@ -2,7 +2,7 @@ import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
 import { Contact } from "./types/contact";
-import { contact } from "./constant/contact";
+import { CONTACT } from "./constant/contact";
 
 type Contacts = Contact[];
 export async function getContacts(query: string = "") {
@@ -20,11 +20,11 @@ export async function getContacts(query: string = "") {
 export async function createContact() {
   await fakeNetwork();
   let id = Math.random().toString(36).substring(2, 9);
-  let item = { ...contact, id, createdAt: Date.now() };
+  let item = { ...CONTACT, id, createdAt: Date.now() };
   let contacts: Contacts = await getContacts();
   contacts.unshift(item);
   await set(contacts);
-  return contact;
+  return item;
 }
 
 export async function getContact(id: string) {
