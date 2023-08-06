@@ -1,16 +1,16 @@
-import { Form } from "react-router-dom";
-const contact = {
-  first: "Your",
-  last: "Name",
-  avatar: "https://placekitten.com/g/200/200",
-  twitter: "your_handle",
-  notes: "Some notes",
-  favorite: true,
-};
+import { Form, useLoaderData } from "react-router-dom";
+import { Contact as ContactType } from "../types/contact";
+import { contactLoader } from "../loader";
 
-type Contact = typeof contact;
+type ContactLoaderReturn = Awaited<ReturnType<typeof contactLoader>>;
 
 export default function Contact() {
+  const { contact } = useLoaderData() as ContactLoaderReturn;
+
+  if (!contact) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div id="contact">
       <div>
@@ -60,11 +60,11 @@ export default function Contact() {
   );
 }
 
-interface FavoriteProps {
-  contact: Contact;
+interface ContactProps {
+  contact: ContactType;
 }
 
-function Favorite({ contact }: FavoriteProps) {
+function Favorite({ contact }: ContactProps) {
   // this is a `let` for later
   let favorite = contact.favorite;
   return (

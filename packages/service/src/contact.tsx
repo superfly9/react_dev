@@ -1,10 +1,10 @@
 import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
+import { Contact } from "./types/contact";
+import { contact } from "./constant/contact";
 
-type Contact = { id: string; createdAt: number };
 type Contacts = Contact[];
-
 export async function getContacts(query: string = "") {
   await fakeNetwork(`getContacts:${query}`);
   let contacts = await localforage.getItem<Contacts | null>("contacts");
@@ -20,14 +20,14 @@ export async function getContacts(query: string = "") {
 export async function createContact() {
   await fakeNetwork();
   let id = Math.random().toString(36).substring(2, 9);
-  let contact = { id, createdAt: Date.now() };
+  let item = { ...contact, id, createdAt: Date.now() };
   let contacts: Contacts = await getContacts();
-  contacts.unshift(contact);
+  contacts.unshift(item);
   await set(contacts);
   return contact;
 }
 
-export async function getContact(id: string = "") {
+export async function getContact(id: string) {
   await fakeNetwork(`contact:${id}`);
   let contacts = await localforage.getItem<Contacts | null>("contacts");
 
@@ -36,7 +36,7 @@ export async function getContact(id: string = "") {
   }
 
   let contact = contacts.find((contact) => contact.id === id);
-  return contact ?? null;
+  return contact;
 }
 
 export async function updateContact(id: string, updates: Contact) {
