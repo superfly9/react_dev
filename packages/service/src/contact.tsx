@@ -39,7 +39,11 @@ export async function getContact(id: string) {
   return contact;
 }
 
-export async function updateContact(id: string, updates: Contact) {
+type Updates = {
+  [k: string]: FormDataEntryValue;
+};
+
+export async function updateContact(id: string, updates: Updates) {
   await fakeNetwork();
   let contacts = await localforage.getItem<Contacts | null>("contacts");
   if (contacts === null) {
