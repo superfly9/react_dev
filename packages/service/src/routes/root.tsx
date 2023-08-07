@@ -1,11 +1,25 @@
-import { Link, Outlet, useLoaderData, Form } from "react-router-dom";
+import {
+  NavLink,
+  NavLinkProps,
+  Outlet,
+  useLoaderData,
+  Form,
+} from "react-router-dom";
 import { RootLoader } from "../loader";
 
 type RootLoaderReturn = Awaited<ReturnType<typeof RootLoader>>;
 
+const routerStatus = (param: { isActive: boolean; isPending: boolean }) => {
+  if (typeof param === "object") {
+    const { isActive, isPending } = param;
+    const status = (isActive && "active") || (isPending && "pending") || "";
+    return status;
+  }
+};
+
 export default function Root() {
   const { contacts } = useLoaderData() as RootLoaderReturn;
-  console.log("[contacts]:", contacts);
+
   return (
     <>
       <div id="sidebar">
@@ -31,7 +45,10 @@ export default function Root() {
             <ul>
               {contacts.map((contact) => (
                 <li key={contact.id}>
-                  <Link to={`contacts/${contact.id}`}>
+                  <NavLink
+                    to={`contacts/${contact.id}`}
+                    className={routerStatus}
+                  >
                     {contact.first || contact.last ? (
                       <>
                         {contact.first} {contact.last}
@@ -40,7 +57,7 @@ export default function Root() {
                       <i>No Name</i>
                     )}{" "}
                     {contact.favorite && <span>★</span>}
-                  </Link>
+                  </NavLink>
                 </li>
               ))}
             </ul>
