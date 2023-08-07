@@ -40,7 +40,7 @@ export default function Contact() {
         {contact.notes && <p>{contact.notes}</p>}
 
         <div>
-          <Form action="edit">
+          <Form method="post" action="edit">
             <button type="submit">Edit</button>
           </Form>
           <Form

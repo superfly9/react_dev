@@ -1,6 +1,6 @@
 import {
   NavLink,
-  NavLinkProps,
+  useNavigation,
   Outlet,
   useLoaderData,
   Form,
@@ -19,7 +19,8 @@ const routerStatus = (param: { isActive: boolean; isPending: boolean }) => {
 
 export default function Root() {
   const { contacts } = useLoaderData() as RootLoaderReturn;
-
+  const { state } = useNavigation();
+  console.log(state);
   return (
     <>
       <div id="sidebar">
@@ -68,7 +69,7 @@ export default function Root() {
           )}
         </nav>
       </div>
-      <div id="detail">
+      <div id="detail" className={state === "loading" ? "loading" : ""}>
         {/* nested routing시 보여줄 컴포넌트를 대체 */}
         <Outlet />
       </div>
