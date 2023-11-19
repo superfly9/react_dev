@@ -18,9 +18,9 @@ const routerStatus = (param: { isActive: boolean; isPending: boolean }) => {
 };
 
 export default function Root() {
-  const { contacts } = useLoaderData() as RootLoaderReturn;
+  const result = useLoaderData() as RootLoaderReturn;
+  const contacts = result?.contacts || [];
   const { state } = useNavigation();
-  console.log(state);
   return (
     <>
       <div id="sidebar">
