@@ -1,15 +1,24 @@
 {
   "name": "react_dev",
   "workspaces": [
-    "packages/*"
+    "packages/service"
   ],
   "packageManager": "yarn@3.6.1",
   "devDependencies": {
     "typescript": "^5.1.6"
   },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not op_mini all"
-  ]
+  ],
+  "dependencies": {
+    "turbo": "^1.10.16"
+  }
 }
