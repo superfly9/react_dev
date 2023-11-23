@@ -1,7 +1,8 @@
 {
   "name": "react_dev",
   "workspaces": [
-    "packages/service"
+    "app/*",
+    "packages/*"
   ],
   "packageManager": "yarn@3.6.1",
   "devDependencies": {
